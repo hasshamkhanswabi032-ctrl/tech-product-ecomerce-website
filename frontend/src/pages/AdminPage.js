@@ -21,7 +21,7 @@ const AdminPage = () => {
 
     const fetchProducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/products');
+            const { data } = await axios.get('/api/products');
             setProducts(data);
         } catch (err) {
             console.error('Error fetching products:', err);
@@ -48,7 +48,7 @@ const AdminPage = () => {
             if (editMode && editId) {
                 // Update product
                 await axios.put(
-                    `http://localhost:5000/api/products/${editId}`,
+                    `/api/products/${editId}`,
                     { title, description, price: Number(price), image },
                     config
                 );
@@ -57,7 +57,7 @@ const AdminPage = () => {
             } else {
                 // Add new product
                 await axios.post(
-                    'http://localhost:5000/api/products',
+                    '/api/products',
                     { title, description, price: Number(price), image },
                     config
                 );
@@ -86,7 +86,7 @@ const AdminPage = () => {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            await axios.delete(`http://localhost:5000/api/products/${id}`, config);
+            await axios.delete(`/api/products/${id}`, config);
             setMessage({ text: 'Product deleted successfully!', type: 'success' });
             
             // If deleting the product currently being edited, cancel edit mode

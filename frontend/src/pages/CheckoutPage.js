@@ -33,7 +33,7 @@ const CheckoutPage = () => {
             };
 
             await axios.post(
-                'http://localhost:5000/api/orders',
+                '/api/orders',
                 {
                     orderItems: cartItems,
                     totalPrice: cartTotal,

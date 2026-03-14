@@ -14,15 +14,11 @@ const ProductsPage = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                };
-                const res = await axios.get('http://localhost:5000/api/products', config);
+                const config = user ? { headers: { Authorization: `Bearer ${user.token}` } } : {};
+                const res = await axios.get('/api/products', config);
                 setProducts(res.data);
                 setLoading(false);
-            } catch (err) {
+            } catch (error) {
                 setError('Failed to fetch products');
                 setLoading(false);
             }

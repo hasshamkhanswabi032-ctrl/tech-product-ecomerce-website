@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
+            const res = await axios.post('/api/users/login', { email, password });
             const userData = res.data;
             localStorage.setItem('token', userData.token);
             localStorage.setItem('user', JSON.stringify(userData));
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (name, email, password) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/users', { name, email, password });
+            const res = await axios.post('/api/users', { name, email, password });
             const userData = res.data;
             localStorage.setItem('token', userData.token);
             localStorage.setItem('user', JSON.stringify(userData));
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
     const loginWithGoogleToken = async (credential) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/users/google', { token: credential });
+            const res = await axios.post('/api/users/google', { token: credential });
             const userData = res.data;
             localStorage.setItem('token', userData.token);
             localStorage.setItem('user', JSON.stringify(userData));

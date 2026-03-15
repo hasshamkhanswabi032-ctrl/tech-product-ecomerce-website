@@ -1,3 +1,4 @@
+// ShopX Server Version 1.0.1 - Vercel Sync Update
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");

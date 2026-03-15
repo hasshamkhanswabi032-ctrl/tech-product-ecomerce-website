@@ -1,45 +1,40 @@
 const mongoose = require('mongoose');
-const User = require('./model/userModel');
 const bcrypt = require('bcryptjs');
-
 require('dotenv').config();
 
+const mongoURI = process.env.MONGO_URI || "mongodb+srv://hassham:comsats@cluster0.iciocgr.mongodb.net/hassham?appName=Cluster0";
+
+const UserSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isAdmin: { type: Boolean, required: true, default: false },
+}, { timestamps: true });
+
+const User = mongoose.model('User', UserSchema);
+
 const seedAdmin = async () => {
-    try {
-        const mongoURI = process.env.MONGO_URI;
-        await mongoose.connect(mongoURI, { tls: true });
-        console.log('MongoDB connected for admin seeding...');
+    await mongoose.connect(mongoURI, { tls: true });
+    console.log('MongoDB connected');
 
-        // Check if user exists
-        const email = 'admin@example.com';
-        const userExists = await User.findOne({ email });
-
-        if (userExists) {
-            console.log('Admin user already exists!');
-            userExists.isAdmin = true;
-            await userExists.save();
-            console.log('Made existing user an admin.');
+    const existing = await User.findOne({ email: 'admin@example.com' });
+    if (existing) {
+        if (!existing.isAdmin) {
+            existing.isAdmin = true;
+            await existing.save();
+            console.log('Updated existing user to admin!');
         } else {
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash('123456', salt);
-
-            await User.create({
-                name: 'Admin User',
-                email: email,
-                password: hashedPassword,
-                isAdmin: true
-            });
-            console.log('✅ Successfully created new Admin user!');
+            console.log('Admin already exists!');
         }
-
-        console.log('Credentials -> Email: admin@example.com | Password: 123456');
-
-        mongoose.disconnect();
-        process.exit(0);
-    } catch (error) {
-        console.error('Seeding failed:', error.message);
-        process.exit(1);
+    } else {
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash('123456', salt);
+        await User.create({ name: 'Admin', email: 'admin@example.com', password: hashed, isAdmin: true });
+        console.log('Admin created: admin@example.com / 123456');
     }
+
+    await mongoose.disconnect();
+    process.exit(0);
 };
 
-seedAdmin();
+seedAdmin().catch(err => { console.error(err); process.exit(1); });

@@ -44,7 +44,7 @@ const Navbar = () => {
                                     <span className="cart-badge">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
                                 )}
                             </Link>
-                            <span className="nav-user">Hi, {user.name.split(' ')[0]}</span>
+                            <span className="nav-user">Hi, {user.name ? user.name.split(' ')[0] : 'User'}</span>
                             <button onClick={logout} className="btn btn-outline">
                                 <LogOut size={16} /> Logout
                             </button>

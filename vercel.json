@@ -15,27 +15,18 @@
       ]
     }
   ],
-  "builds": [
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "backend/server.js"
+      "destination": "/api/index.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "index.html"
+      "source": "/((?!api/).*)",
+      "destination": "/frontend/build/$1"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/frontend/build/index.html"
     }
   ]
 }

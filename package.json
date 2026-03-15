@@ -2,7 +2,7 @@
   "name": "ecommerce-monorepo",
   "version": "1.0.0",
   "scripts": {
-    "build": "npm --prefix frontend run build"
+    "build": "npm install --prefix frontend && npm --prefix frontend run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

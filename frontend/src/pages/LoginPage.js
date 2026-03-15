@@ -71,7 +71,7 @@ const LoginPage = () => {
                         theme="outline"
                         text="signin_with"
                         size="large"
-                        width="100%"
+                        width={250}
                     />
                 </div>
 

@@ -30,12 +30,12 @@
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/backend/server.js"
+      "source": "/api/:path*",
+      "destination": "backend/server.js"
     },
     {
       "source": "/(.*)",
-      "destination": "/frontend/$1"
+      "destination": "/"
     }
   ]
 }

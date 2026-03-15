@@ -14,6 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Security headers for Google OAuth
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    res.setHeader("Cross-Origin-Embedder-Policy", "unsafe-none");
+    next();
+});
+
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);

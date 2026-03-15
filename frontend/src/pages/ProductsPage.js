@@ -54,7 +54,7 @@ const ProductsPage = () => {
                                 <h3 className="product-title">{product.title}</h3>
                                 <p className="product-desc">{product.description}</p>
                                 <div className="product-footer">
-                                    <span className="product-price">${product.price.toFixed(2)}</span>
+                                    <span className="product-price">${(Number(product.price) || 0).toFixed(2)}</span>
                                     <button
                                         onClick={() => addToCart(product)}
                                         className="btn btn-outline btn-icon"

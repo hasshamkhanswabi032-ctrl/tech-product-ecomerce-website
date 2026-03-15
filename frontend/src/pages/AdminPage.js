@@ -227,7 +227,7 @@ const AdminPage = () => {
                                     />
                                     <div className="admin-product-info">
                                         <h4>{product.title}</h4>
-                                        <p>${product.price.toFixed(2)}</p>
+                                        <p>${(Number(product.price) || 0).toFixed(2)}</p>
                                     </div>
                                     <div style={{ display: 'flex', gap: '0.25rem' }}>
                                         <button 
